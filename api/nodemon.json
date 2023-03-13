@@ -1,5 +1,10 @@
 {
   "execMap": {
     "ts": "ts-node-esm"
-  }
+  },
+  "env": {
+    "MONGO_USER": "mongodb",
+    "MONGO_PASSWORD": "5timesICEpancake",
+    "MONGO_DB": "your-db-name"
+}
 }

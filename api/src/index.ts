@@ -1,12 +1,32 @@
-import express, { Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
+import mongoose from "mongoose";
+import cors from 'cors';
+import todoRoutes from "./routes/index.js"
+import clientRouter from "./routes/clientRoutes.js";
+import coachRouter from "./routes/coachRoutes.js";
+import dailyLogRouter from "./routes/dailyLogRoutes.js";
 
-const app = express();
-const port = 5000;
+const app: Express = express();
+const PORT = 4343;
 
-app.get("/", (req: Request, res: Response) => {
-  res.json({ greeting: "Hello world!" });
-});
+app.use(cors());
+app.use('/client', clientRouter);
+app.use('/coach', coachRouter);
+app.use('/log', dailyLogRouter);
 
-app.listen(port, () => {
-  console.log(`🚀 server started at http://localhost:${port}`);
-});
+const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.nhoulwn.mongodb.net/?retryWrites=true&w=majority`;
+// const options = { useNewUrlParser: true, useUnifiedTopology: true }
+const options = {}
+// mongoose.set("useFindAndModify", false)
+
+mongoose
+  .connect(uri, options)
+  .then(() =>
+    app.listen(PORT, () =>
+      console.log(`Server running on http://localhost:${PORT}`)
+    )
+  )
+  .catch(error => {
+    throw error
+  });
+
