@@ -14,6 +14,7 @@ class ClientController {
 
   static async create(req: Request, res: Response) {
     try {
+      
       const { name, email, password, coachId } = req.body;
       const client = await ClientModel.create({ name, email, password, coachId });
       res.status(201).json({ client });
