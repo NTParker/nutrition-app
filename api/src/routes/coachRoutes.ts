@@ -1,5 +1,5 @@
 import express from 'express';
-import CoachController from '../controllers/coachController.js';
+import CoachController from '../controllers/CoachController.js';
 
 const coachRouter = express.Router();
 
