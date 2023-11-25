@@ -1,0 +1,92 @@
+service: nutrition-tracking-app
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+  environment:
+    DYNAMODB_TABLE: MyTrackerTable
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:${self:provider.region}:607681518719:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+package:
+  patterns:
+    - '!src/**'
+    - '!tsconfig.json'
+    - '!package-lock.json'
+    - '!shared-local-instance.db'
+    - '!dynamodb-local-metadata.json'
+    - '!.dynamodb/**'
+    - '!readme.md'
+    - '!serverless.local.yml'
+    - 'dist/'
+  excludeDevDependencies: true
+
+functions:
+  createUser:
+    handler: dist/handlers/userHandlers.createUser
+    events:
+      - http:
+          path: users/create
+          method: post
+  getUser:
+    handler: dist/handlers/userHandlers.getUser
+    events:
+      - http:
+          path: users/{userId}
+          method: get
+  updateUser:
+    handler: dist/handlers/userHandlers.updateUser
+    events:
+      - http:
+          path: users/update/{userId}
+          method: put
+  createDailyLog:
+    handler: dist/handlers/nutritionHandlers.createDailyLog
+    events:
+      - http:
+          path: logs/{userId}/create
+          method: post
+  getDailyLog:
+    handler: dist/handlers/nutritionHandlers.getDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: get
+  updateDailyLog:
+    handler: dist/handlers/nutritionHandlers.updateDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: put
+  deleteDailyLog:
+    handler: dist/handlers/nutritionHandlers.deleteDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: delete
+  createCheckin:
+    handler: dist/handlers/nutritionHandlers.createCheckin
+    events:
+      - http:
+          path: checkins/{userId}/create
+          method: post
+  getCheckin:
+    handler: dist/handlers/nutritionHandlers.getCheckin
+    events:
+      - http:
+          path: checkins/{userId}/{checkinId}
+          method: get
+  updateCheckin:
+    handler: dist/handlers/nutritionHandlers.getCheckin
+    events:
+      - http:
+          path: checkins/{userId}/{checkinId}
+          method: put
+
+
