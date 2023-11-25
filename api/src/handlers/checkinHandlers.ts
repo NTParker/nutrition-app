@@ -28,7 +28,7 @@ export const createCheckin: APIGatewayProxyHandler = async (event) => {
     const item = {
       PK: `USER#${userId}`,
       SK: `CHECKIN#${checkinId}`,
-      Type: "CheckIn",
+      Type: "checkin",
       UserId: userId,
       Date: checkinDate,
       Status: "Pending",
