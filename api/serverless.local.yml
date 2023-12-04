@@ -1,0 +1,104 @@
+service: nutrition-tracking-app-local
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: local
+  region: us-east-1
+  environment:
+    IS_OFFLINE: true
+    DYNAMODB_TABLE: NutritionTrackingAppLocal
+    DYNAMODB_ENDPOINT: http://localhost:8000
+
+functions:
+  createUser:
+    handler: dist/handlers/userHandlers.createUser
+    events:
+      - http:
+          path: users/create
+          method: post
+  getUser:
+    handler: dist/handlers/userHandlers.getUser
+    events:
+      - http:
+          path: users/{userId}
+          method: get
+  updateUser:
+    handler: dist/handlers/userHandlers.updateUser
+    events:
+      - http:
+          path: users/update/{userId}
+          method: put
+  createDailyLog:
+    handler: dist/handlers/nutritionHandlers.createDailyLog
+    events:
+      - http:
+          path: logs/{userId}/create
+          method: post
+  getDailyLog:
+    handler: dist/handlers/nutritionHandlers.getDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: get
+  updateDailyLog:
+    handler: dist/handlers/nutritionHandlers.updateDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: put
+  deleteDailyLog:
+    handler: dist/handlers/nutritionHandlers.deleteDailyLog
+    events:
+      - http:
+          path: logs/{userId}/{logId}
+          method: delete
+  createCheckin:
+    handler: dist/handlers/nutritionHandlers.createCheckin
+    events:
+      - http:
+          path: checkins/{userId}/create
+          method: post
+  getCheckin:
+    handler: dist/handlers/nutritionHandlers.getCheckin
+    events:
+      - http:
+          path: checkins/{userId}/{checkinId}
+          method: get
+  updateCheckin:
+    handler: dist/handlers/nutritionHandlers.getCheckin
+    events:
+      - http:
+          path: checkins/{userId}/{checkinId}
+          method: put
+  # Define other functions similarly
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+# Local DynamoDB setup if needed
+resources:
+  - Resources:
+      LocalDynamoDBTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: ${self:provider.environment.DYNAMODB_TABLE}
+          AttributeDefinitions:
+            - AttributeName: PK
+              AttributeType: S
+            - AttributeName: SK
+              AttributeType: S
+          KeySchema:
+            - AttributeName: PK
+              KeyType: HASH
+            - AttributeName: SK
+              KeyType: RANGE
+
+custom:
+  dynamodb:
+    start:
+      port: 8000 # The port DynamoDB Local will run on
+      inMemory: true # Keeps data in memory
+      migrate: true # Auto-creates the tables on startup
