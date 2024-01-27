@@ -1,6 +1,6 @@
 import { FC, FormEvent, useEffect, useState } from "react";
 import { GetTokenSilentlyOptions, useAuth0 } from "@auth0/auth0-react";
-import CreateUserService from "../../services/creatUser.service";
+import CreateUserService from "../../services/createUser.service";
 
 const CreateAccount: FC = () => {
   const { user, getAccessTokenSilently } = useAuth0();

@@ -52,24 +52,9 @@ export const createUser: APIGatewayProxyHandler = async (event) => {
     await dynamoDb.send(command);
 
     return makeResponse(200, newUser.Item);
-    // return {
-    //   statusCode: 200,
-    //   body: JSON.stringify(newUser.Item),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    // };
   } catch (error) {
     console.error(error);
     return makeResponse(500, {}, "An error occurred while creating the user.");
-    // return {
-    //   statusCode: 500,
-    //   body: "An error occurred while creating the user.",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
   }
 };
 

@@ -69,3 +69,29 @@ export const makeResponse = (statusCode: number, body: any, error?: string | und
 };
 
 export default validateToken;
+
+
+
+const thing = {
+  field1: 'some string',
+  field2: 123,
+  field3: ['a', 'b', 'c'],
+  field4: {
+    subField1: 'another string',
+    subField2: 456,
+    subField3: ['d', 'e', 'f'],
+  }
+}
+
+const thingDYNAMO = {
+  field1: { S: 'some string' },
+  field2: { N: 123 },
+  field3: { L: ['a', 'b', 'c'] },
+  field4: {
+    M: {
+      subField1: { S: 'another string' },
+      subField2: { N: 456 },
+      subField3: { L: ['d', 'e', 'f'] },
+    }
+  }
+}
