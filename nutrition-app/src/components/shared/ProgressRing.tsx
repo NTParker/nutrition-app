@@ -3,6 +3,7 @@ import { FC } from "react";
 type ProgressRingProps = {
   radius?: number;
   stroke?: number;
+  showAmount?: boolean;
   color: string;
   amount: number;
   goal: number;
@@ -18,19 +19,29 @@ const ProgressRing: FC<ProgressRingProps> = ({
   unit,
   stroke = 8,
   radius = 50,
+  showAmount = true,
 }) => {
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
-  const progress = (amount / goal) * circumference;
 
-  const strokeDashoffset = amount / goal <= 1 ? circumference - progress : 0;
-  const progressColor = amount / goal <= 1 ? color : "red";
+  console.log("amount: ", amount);
+  console.log("goal: ", goal);
+
+  const progress = (amount / goal) * circumference;
+  const strokeDashoffset =
+    goal !== 0 && amount / goal <= 1 ? circumference - progress : 0;
+  const progressColor =
+    goal !== 0 && amount / goal <= 1
+      ? color
+      : goal === 0
+      ? "transparent"
+      : "#FF0000";
 
   return (
     <svg
       height={radius * 2}
       width={radius * 2}
-      viewBox={`0 0 ${radius * 2} ${radius * 2 + 20}`}
+      viewBox={`0 0 ${radius * 2} ${showAmount ? radius * 2 + 20 : radius * 2}`}
     >
       <circle
         stroke="#49494A"
@@ -50,28 +61,32 @@ const ProgressRing: FC<ProgressRingProps> = ({
         cx={radius}
         cy={radius}
       />
-      <text
-        x="50%"
-        y="42%"
-        dominantBaseline="middle"
-        textAnchor="middle"
-        fontSize="14"
-        fontFamily="Verdana"
-        fill="white"
-      >
-        {`${amount} ${unit}`}
-      </text>
-      <text
-        x="50%"
-        y="87%"
-        dominantBaseline="middle"
-        textAnchor="middle"
-        fontSize="14"
-        fontFamily="Verdana"
-        fill="white"
-      >
-        {dataType}
-      </text>
+      {showAmount ? (
+        <>
+          <text
+            x="50%"
+            y="42%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize="14"
+            fontFamily="Verdana"
+            fill="white"
+          >
+            {`${amount} ${unit}`}
+          </text>
+          <text
+            x="50%"
+            y="87%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize="14"
+            fontFamily="Verdana"
+            fill="white"
+          >
+            {dataType}
+          </text>
+        </>
+      ) : null}
     </svg>
   );
 };

@@ -211,6 +211,176 @@ functions:
               - X-Amz-Security-Token
               - X-Amz-User-Agent
             allowCredentials: false
+  createWorkout:
+    handler: dist/handlers/WorkoutService.createWorkout
+    events:
+      - http:
+          path: workouts/{userId}/create
+          method: post
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  getWorkouts:
+    handler: dist/handlers/WorkoutService.getWorkouts
+    events:
+      - http:
+          path: workouts/{userId}
+          method: get
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  getWorkoutById:
+    handler: dist/handlers/WorkoutService.getWorkoutById
+    events:
+      - http:
+          path: workouts/{userId}/{workoutId}
+          method: get
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  updateWorkout:
+    handler: dist/handlers/WorkoutService.updateWorkout
+    events:
+      - http:
+          path: workouts/{userId}/{workoutId}
+          method: put
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  deleteWorkout:
+    handler: dist/handlers/WorkoutService.deleteWorkout
+    events:
+      - http:
+          path: workouts/{userId}/{workoutId}
+          method: delete
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  createExercise:
+    handler: dist/handlers/ExerciseService.createExercise
+    events:
+      - http:
+          path: exercises/{userId}/create
+          method: post
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  getExercises:
+    handler: dist/handlers/ExerciseService.getExercises
+    events:
+      - http:
+          path: exercises/{userId}
+          method: get
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  getExercise:
+    handler: dist/handlers/ExerciseService.getExercise
+    events:
+      - http:
+          path: exercises/{userId}/{exerciseId}
+          method: get
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  updateExercise:
+    handler: dist/handlers/ExerciseService.updateExercise
+    events:
+      - http:
+          path: exercises/{userId}/{exerciseId}
+          method: put
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
+  deleteExercise:
+    handler: dist/handlers/ExerciseService.deleteExercise
+    events:
+      - http:
+          path: exercises/{userId}/{exerciseId}
+          method: delete
+          cors: 
+            origins:
+              - '*'
+            headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+            allowCredentials: false
 
 resources:
   Resources:

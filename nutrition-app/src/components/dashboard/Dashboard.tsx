@@ -6,6 +6,7 @@ import { useUserContext } from "../../context/UserContext";
 import Footer from "./components/Footer";
 import { DashboardProvider } from "../../context/DashboardContext";
 import Header from "./components/Header";
+import ClientProvider from "../../context/ClientContext";
 
 const Dashboard: React.FC = () => {
   const { error, isLoading, user } = useAuth0();
@@ -61,7 +62,7 @@ const Dashboard: React.FC = () => {
   return (
     // <div className="container p-0.5 w-full h-full sm:w-full md:w-full sm:h-full md:h-full">
     <DashboardProvider>
-      <div className="container bg-zinc-900 w-full max-w-full h-dvh max-h-dvh sm:w-full sm:max-w-full md:w-full md:max-w-full sm:h-dvh sm:max-h-dvh md:h-dvh md:max-h-dvh">
+      <div className="container bg-zinc-900 w-full max-w-full h-dvh max-h-dvh sm:w-full sm:max-w-full md:w-full md:max-w-full sm:h-dvh sm:max-h-dvh md:h-dvh md:max-h-dvh overflow-y-auto pb-32">
         <Header />
         {noDefaultView && (
           // Display a message to the user to select a default view along with 'client view' and 'coach view' buttons that set the default view
@@ -84,7 +85,11 @@ const Dashboard: React.FC = () => {
         Switch to {role === "client" ? "Coach" : "Client"} View
         </button>
       )} */}
-        {role === "client" && <ClientDashboard />}
+        {role === "client" && (
+          <ClientProvider>
+            <ClientDashboard />
+          </ClientProvider>
+        )}
         {role === "coach" && <CoachDashboard />}
         {/* Rest of the dashboard components */}
         <Footer />

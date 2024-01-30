@@ -73,6 +73,7 @@ functions:
           path: checkins/{userId}/{checkinId}
           method: put
   # Define other functions similarly
+  
 
 plugins:
   - serverless-offline

@@ -1,13 +1,11 @@
-import { useDashboard } from "../../../context/DashboardContext";
+import { useDashboardContext } from "../../../context/DashboardContext";
 
 const Header = () => {
   const { currentPage, handlePageChange, currentView, handleViewChange } =
-    useDashboard();
+    useDashboardContext();
   return (
     <>
-      {/* <div className="w-full"> */}
-      {/* <div className="container w-full pt-3 bg-slate-950 text-center"> */}
-      <div className="z-50 w-full h-16 max-w-full max-h-16 sm:w-full sm:max-w-full md:w-full md:max-w-full sm:h-16 sm:max-h-16 md:h-16 md:max-h-16 dark:bg-slate-950 text-center flex flex-col justify-end">
+      <div className="fixed top-0 left-0 right-0 z-50 w-full h-16 max-w-full max-h-16 sm:w-full sm:max-w-full md:w-full md:max-w-full sm:h-16 sm:max-h-16 md:h-16 md:max-h-16 dark:bg-slate-950 text-center flex flex-col justify-end">
         <div className="flex justify-end pr-4">
           <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
             {currentView === "client" ? "Client" : "Coach"}
@@ -24,6 +22,10 @@ const Header = () => {
         </div>
         <h1 className="text-2xl font-bold text-slate-50">{currentPage}</h1>
       </div>
+      <div
+        className="pt-16
+      "
+      />
       {/* <div className="fixed h-16 w-full max-w-lg dark:bg-slate-950 border-red-600" /> */}
       {/* </div> */}
     </>
